@@ -1,0 +1,33 @@
+:root {
+    --num-cells-per-row: 8;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #222;
+    color: white;
+    font-family: sans-serif;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    height: 600px;
+    width: 600px;
+}
+
+.square {
+    border: solid 1px;
+    height: calc(100% / var(--num-cells-per-row) );
+    width: calc(100% / var(--num-cells-per-row) );
+}
+
+.highlight {
+    background: cyan;
+}
