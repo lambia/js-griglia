@@ -1,6 +1,6 @@
-:root {
+/* :root {
     --num-cells-per-row: 8;
-}
+} */
 
 * {
     box-sizing: border-box;
@@ -24,8 +24,8 @@ body {
 
 .square {
     border: solid 1px;
-    height: calc(100% / var(--num-cells-per-row) );
-    width: calc(100% / var(--num-cells-per-row) );
+    /* height: calc(100% / var(--num-cells-per-row) );
+    width: calc(100% / var(--num-cells-per-row) ); */
 }
 
 .highlight {
