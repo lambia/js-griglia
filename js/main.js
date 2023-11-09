@@ -15,32 +15,54 @@ function creaGriglia() {
 
     //recupera il livello in base al valore della select
     const livello = getLivello();
-    let numCelleTotali;
-    let numCellePerRiga;
+    let dimensioniGriglie = [9, 64, 49];
+    let numCelleTotali = dimensioniGriglie[livello-1];
+    let numCellePerRiga = Math.sqrt(numCelleTotali); //radice quadrata: es 100 totali -> 10 per riga
+    
+    const bombsList = [];
+    let gameover = false;
+    let punteggio = 0;
+ 
+    while(false) {
+        const nuovoNumero = getRndInteger(1, numCelleTotali);
 
-    if (livello == 1) {
-        numCelleTotali = 81;
-        numCellePerRiga = 9;
-    } else if (livello == 2) {
-        numCelleTotali = 64;
-        numCellePerRiga = 8;
-    } else if (livello == 3) {
-        numCelleTotali = 49;
-        numCellePerRiga = 7;
+        if(!bombsList.includes(nuovoNumero) ) {
+            bombsList.push( nuovoNumero );
+        }
     }
 
-    const cellaFortunata = getRndInteger(1, numCelleTotali);
-    document.getElementById("msg").innerText = `Cella fortunata: ${cellaFortunata}`;
+    console.log(bombsList);
 
     for (let i = 1; i <= numCelleTotali; i++) {
 
-        let cella = creaQuadrato(i, cellaFortunata);
+        let cella = creaQuadrato(i);
         cella.style.width = `calc(100% / ${numCellePerRiga})`;
         cella.style.height = `calc(100% / ${numCellePerRiga})`;
+        
+        //per ogni quadrato voglio un evento che gestisca il click
+        cella.addEventListener("click", function () {
 
-        if(i==cellaFortunata) {
-            cella.style.border = "solid 1px red";
-        }
+            const numCelleValide = numCelleTotali - bombsList;
+
+            if(!gameover) {
+                if(!bombsList.includes(i)) {
+                    cella.classList.add("clicked");
+                    punteggio++;
+                    document.getElementById("msg").innerHTML = `Punteggio: ${punteggio}`;
+
+                    if(punteggio >= numCelleValide) {
+                        alert("Hai vinto");
+                        gameover = true;
+                    }
+                } else {
+                    cella.classList.add("mine");
+                    gameover = true;
+                }
+            }
+
+            // let numeroCella = parseInt(cella.innerText);
+            // console.log("Cella cliccata (inner)", numeroCella);
+        });
 
         grid.appendChild(cella);
 
@@ -54,27 +76,11 @@ function getLivello() {
     return livello;
 }
 
-function creaQuadrato(numero, cellaFortunata) {
+function creaQuadrato(numero) {
 
     const cella = document.createElement("div");
     cella.classList.add("square");
     cella.innerText = numero;
-
-    //per ogni quadrato voglio un evento che gestisca il click
-    cella.addEventListener("click", function () {
-
-        if(numero==cellaFortunata) {
-            console.log("Hai vinto", numero);
-        } else {
-            console.log("Sbagliato, ritenta", numero);
-        }
-
-        // let numeroCella = parseInt(cella.innerText);
-        // console.log("Cella cliccata (inner)", numeroCella);
-
-        cella.classList.toggle("highlight");
-
-    });
 
     return cella;
 }

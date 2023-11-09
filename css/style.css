@@ -28,6 +28,10 @@ body {
     width: calc(100% / var(--num-cells-per-row) ); */
 }
 
-.highlight {
+.clicked {
     background: cyan;
+}
+
+.mine {
+    background: crimson;
 }
