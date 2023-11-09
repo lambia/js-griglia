@@ -15,7 +15,7 @@ function creaGriglia() {
 
     //recupera il livello in base al valore della select
     const livello = getLivello();
-    let dimensioniGriglie = [9, 64, 49];
+    let dimensioniGriglie = [81, 64, 49];
     let numCelleTotali = dimensioniGriglie[livello-1];
     let numCellePerRiga = Math.sqrt(numCelleTotali); //radice quadrata: es 100 totali -> 10 per riga
     
@@ -23,7 +23,7 @@ function creaGriglia() {
     let gameover = false;
     let punteggio = 0;
  
-    while(false) {
+    while(bombsList.length < 16) {
         const nuovoNumero = getRndInteger(1, numCelleTotali);
 
         if(!bombsList.includes(nuovoNumero) ) {
